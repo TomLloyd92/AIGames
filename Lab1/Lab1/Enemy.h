@@ -29,6 +29,7 @@ public:
 
 	//AI Movement
 	void seekOrFlee(std::string seekOrFlee, Player t_player);
+	void arrive(Player t_player);
 
 private:
 	//Test Circle

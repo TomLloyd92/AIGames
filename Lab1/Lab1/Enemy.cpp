@@ -88,6 +88,52 @@ void Enemy::seekOrFlee(std::string seekOrFlee, Player t_player)
 	setVelocity(steering);
 }
 
+void Enemy::arrive(Player t_player)
+{
+	sf::Vector2f relevantLocation;
+
+	relevantLocation = t_player.getPos() - m_pos;
+
+	if (m_vectorMaths.magnitude(relevantLocation) > 300)
+	{
+		m_enemyShape.setFillColor(sf::Color(255, 0, 0));
+		m_MAX_SPEED = .5;
+	}
+	else if (m_vectorMaths.magnitude(relevantLocation) < 300)
+	{
+		m_enemyShape.setFillColor(sf::Color(255, 255, 255));
+		m_MAX_SPEED = .5 * (m_vectorMaths.magnitude(relevantLocation) / 300);
+
+	}
+
+	//Unit vector
+	relevantLocation = m_vectorMaths.unitVec(relevantLocation);
+
+	//Scale to Speed
+	relevantLocation = relevantLocation * m_speed;
+
+	//Subtract velocity from desiered
+	sf::Vector2f steering = relevantLocation + m_vel;
+
+	//Limit Max force
+	float magnitudeSteering = m_vectorMaths.magnitude(steering);
+
+	if (magnitudeSteering > m_MAX_FORCE)
+	{
+		sf::Vector2f unitSteering = steering / magnitudeSteering;
+		steering = unitSteering * m_MAX_FORCE;
+	}
+
+	//Convert Velocity Vector into Rotation
+	float dest = std::atan2f(-1.0f * steering.y, -1.0f * steering.x) / PI * 180 + 180;
+
+	//Apply Rotation
+	setRotiation(dest);
+
+	//Apply Steering
+	setVelocity(steering);
+}
+
 void Enemy::m_movement()
 {
 	m_pos = m_pos + m_vel;
