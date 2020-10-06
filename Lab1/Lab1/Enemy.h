@@ -1,8 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Globals.h"
+#include "Player.h"
 #include <time.h>
-
+#include "VectorMaths.h"
 class Enemy
 {
 public:
@@ -26,6 +27,9 @@ public:
 	void setRotiation(float t_rotation) { m_rotation = t_rotation; };
 	void increaseSpeed();
 
+	//AI Movement
+	void seekOrFlee(std::string seekOrFlee, Player t_player);
+
 private:
 	//Test Circle
 	sf::CircleShape m_enemyShape;
@@ -38,10 +42,11 @@ private:
 	//Movement
 	void m_movement();
 	sf::Vector2f m_steering;
-	float m_MAX_SPEED = .05;
+	float m_MAX_SPEED = .5;
 	float m_speed = 0.01;
 	float m_MAX_FORCE = 10;
 	const static int m_ROTATION_OFFSET = 90;
 
+	VectorMaths m_vectorMaths;
 
 };

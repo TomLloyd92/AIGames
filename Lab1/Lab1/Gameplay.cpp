@@ -11,7 +11,10 @@ GamePlay::~GamePlay()
 void GamePlay::update(sf::Time t_deltaTime)
 {
 	m_player.update(t_deltaTime);
+
 	m_enemy.update(t_deltaTime);
+
+	m_enemy.seekOrFlee("seek", m_player);
 }
 
 void GamePlay::render(sf::RenderWindow& t_window)
