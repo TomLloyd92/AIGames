@@ -97,13 +97,12 @@ void Enemy::arrive(Player t_player)
 	if (m_vectorMaths.magnitude(relevantLocation) > 300)
 	{
 		m_enemyShape.setFillColor(sf::Color(255, 0, 0));
-		m_MAX_SPEED = .5;
+		m_MAX_FORCE = 10;
 	}
 	else if (m_vectorMaths.magnitude(relevantLocation) < 300)
 	{
 		m_enemyShape.setFillColor(sf::Color(255, 255, 255));
-		m_MAX_SPEED = .5 * (m_vectorMaths.magnitude(relevantLocation) / 300);
-
+		m_MAX_FORCE = 10 * (m_vectorMaths.magnitude(relevantLocation) / 300);
 	}
 
 	//Unit vector
