@@ -4,6 +4,7 @@
 #include "Player.h"
 #include <time.h>
 #include "VectorMaths.h"
+#include <iostream>
 class Enemy
 {
 public:
@@ -28,6 +29,7 @@ public:
 	void increaseSpeed();
 
 	//AI Movement
+	void wander(Player t_player);
 	void seekOrFlee(std::string seekOrFlee, Player t_player);
 	void arrive(Player t_player);
 
@@ -46,7 +48,7 @@ private:
 	float m_MAX_SPEED = .5;
 	float m_speed = 0.01;
 	float m_MAX_FORCE = 10;
-	const static int m_ROTATION_OFFSET = 90;
+	const static int m_ROTATION_OFFSET = 45;
 
 	VectorMaths m_vectorMaths;
 

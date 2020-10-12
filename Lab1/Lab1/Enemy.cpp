@@ -45,6 +45,11 @@ void Enemy::increaseSpeed()
 	}
 }
 
+void Enemy::wander(Player t_player)
+{
+
+}
+
 void Enemy::seekOrFlee(std::string seekOrFlee, Player t_player)
 {
 	sf::Vector2f relevantLocation;
@@ -65,13 +70,11 @@ void Enemy::seekOrFlee(std::string seekOrFlee, Player t_player)
 	//Scale to Speed
 	relevantLocation = relevantLocation * m_speed;
 
-
 	//Subtract velocity from desiered
 	sf::Vector2f steering = relevantLocation + m_vel;
 
 	//Limit Max force
 	float magnitudeSteering = m_vectorMaths.magnitude(steering);
-
 	if (magnitudeSteering > m_MAX_FORCE)
 	{
 		sf::Vector2f unitSteering = steering / magnitudeSteering;
@@ -79,7 +82,10 @@ void Enemy::seekOrFlee(std::string seekOrFlee, Player t_player)
 	}
 
 	//Convert Velocity Vector into Rotation
-	float dest = std::atan2f(-1.0f * steering.y, -1.0f * steering.x) / PI * 180 + 180;
+	//float dest = std::atan2f(-1.0f * steering.y, -1.0f * steering.x) / PI * 180 + 180;
+
+	//Convert Velocity Vector into Rotation
+	float dest = std::atan2f(-steering.x, steering.y) / DEG_TO_RAD;
 
 	//Apply Rotation
 	setRotiation(dest);
@@ -124,13 +130,17 @@ void Enemy::arrive(Player t_player)
 	}
 
 	//Convert Velocity Vector into Rotation
-	float dest = std::atan2f(-1.0f * steering.y, -1.0f * steering.x) / PI * 180 + 180;
+	float dest = std::atan2f(-steering.x, steering.y) / DEG_TO_RAD;
 
+	std::cout << m_vel.x << std::endl;
+	std::cout << m_vel.y << std::endl;
 	//Apply Rotation
 	setRotiation(dest);
 
 	//Apply Steering
 	setVelocity(steering);
+
+
 }
 
 void Enemy::m_movement()
