@@ -2,7 +2,6 @@
 
 Enemy::Enemy()
 {
-	srand(time(0));
 }
 
 Enemy::~Enemy()
@@ -45,23 +44,37 @@ void Enemy::increaseSpeed()
 	}
 }
 
-void Enemy::wander(Player t_player)
-{
+void Enemy::wander()
+{	
+	futureLocation.x = m_vel.x * m_PREDICTED_LENGTH;
+	futureLocation.y = m_vel.y * m_PREDICTED_LENGTH;
+	futureLocation = futureLocation + m_pos;
 
+	m_vel = futureLocation - m_pos;
+
+	m_rotation = getNewOrientation(m_rotation, m_vel);
+
+	m_rotation = m_rotation + (m_MAX_ROTATION * ((rand() % 2) - 0.5));
+
+	m_vel = sf::Vector2f (-std::sin(m_rotation * DEG_TO_RAD), std::cos(m_rotation * DEG_TO_RAD));
+
+	std::cout << m_vel.x;
+	std::cout << " ";
+	std::cout << m_vel.y << std::endl;
 }
 
-void Enemy::seekOrFlee(std::string seekOrFlee, Player t_player)
+void Enemy::seekOrFlee(std::string seekOrFlee, sf::Vector2f t_target)
 {
 	sf::Vector2f relevantLocation;
-	if (seekOrFlee == "seek")
+	if (seekOrFlee == "seek") 
 	{
 		//SEEK
-		relevantLocation = t_player.getPos() - m_pos;
+		relevantLocation = t_target - m_pos;
 	}
 	else if (seekOrFlee == "flee")
 	{
 		//FLEE
-		relevantLocation = m_pos - t_player.getPos();
+		relevantLocation = m_pos - t_target;
 	}
 
 	//Unit vector
@@ -85,20 +98,20 @@ void Enemy::seekOrFlee(std::string seekOrFlee, Player t_player)
 	//float dest = std::atan2f(-1.0f * steering.y, -1.0f * steering.x) / PI * 180 + 180;
 
 	//Convert Velocity Vector into Rotation
-	float dest = std::atan2f(-steering.x, steering.y) / DEG_TO_RAD;
+	//float dest = std::atan2f(-steering.x, steering.y) / DEG_TO_RAD;
 
 	//Apply Rotation
-	setRotiation(dest);
+	setRotiation(getNewOrientation(m_rotation, steering));
 
 	//Apply Steering
 	setVelocity(steering);
 }
 
-void Enemy::arrive(Player t_player)
+void Enemy::arrive(sf::Vector2f t_target)
 {
 	sf::Vector2f relevantLocation;
 
-	relevantLocation = t_player.getPos() - m_pos;
+	relevantLocation = t_target - m_pos;
 
 	if (m_vectorMaths.magnitude(relevantLocation) > 300)
 	{
@@ -132,15 +145,25 @@ void Enemy::arrive(Player t_player)
 	//Convert Velocity Vector into Rotation
 	float dest = std::atan2f(-steering.x, steering.y) / DEG_TO_RAD;
 
-	std::cout << m_vel.x << std::endl;
-	std::cout << m_vel.y << std::endl;
 	//Apply Rotation
-	setRotiation(dest);
+	setRotiation(getNewOrientation(m_rotation, steering));
 
 	//Apply Steering
 	setVelocity(steering);
 
 
+}
+
+float Enemy::getNewOrientation(float t_currentOrientation, sf::Vector2f t_velocity)
+{
+	if (m_vectorMaths.magnitude(t_velocity) > 0)
+	{
+		return	std::atan2f(-t_velocity.x, t_velocity.y) / DEG_TO_RAD; ;
+	}
+	else
+	{
+		return t_currentOrientation;
+	}
 }
 
 void Enemy::m_movement()

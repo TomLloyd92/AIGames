@@ -29,9 +29,11 @@ public:
 	void increaseSpeed();
 
 	//AI Movement
-	void wander(Player t_player);
-	void seekOrFlee(std::string seekOrFlee, Player t_player);
-	void arrive(Player t_player);
+	void wander();
+	void seekOrFlee(std::string seekOrFlee, sf::Vector2f t_target);
+	void arrive(sf::Vector2f t_target);
+
+	float getNewOrientation(float t_currentOrientation, sf::Vector2f t_velocity);
 
 private:
 	//Test Circle
@@ -52,4 +54,11 @@ private:
 
 	VectorMaths m_vectorMaths;
 
+	const float m_PREDICTED_LENGTH = 100;
+
+	const float m_MAX_ROTATION = 6;
+
+	//Check future location
+	sf::Vector2f futureLocation;
+	float num = 0;
 };
