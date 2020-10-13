@@ -56,11 +56,9 @@ void Enemy::wander()
 
 	m_rotation = m_rotation + (m_MAX_ROTATION * ((rand() % 2) - 0.5));
 
-	m_vel = sf::Vector2f (-std::sin(m_rotation * DEG_TO_RAD), std::cos(m_rotation * DEG_TO_RAD));
 
-	std::cout << m_vel.x;
-	std::cout << " ";
-	std::cout << m_vel.y << std::endl;
+
+	setVelocity(sf::Vector2f(-std::sin(m_rotation * DEG_TO_RAD), std::cos(m_rotation * DEG_TO_RAD)) * m_MAX_FORCE);
 }
 
 void Enemy::seekOrFlee(std::string seekOrFlee, sf::Vector2f t_target)
@@ -150,7 +148,6 @@ void Enemy::arrive(sf::Vector2f t_target)
 
 	//Apply Steering
 	setVelocity(steering);
-
 
 }
 

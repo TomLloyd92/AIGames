@@ -16,6 +16,7 @@ void GamePlay::update(sf::Time t_deltaTime)
 
 	//m_enemy.seekOrFlee("seek", m_player.getPos());
 	//m_enemy.arrive(m_player.getPos());
+	
 	m_enemy.wander();
 }
 

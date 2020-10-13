@@ -56,7 +56,7 @@ private:
 
 	const float m_PREDICTED_LENGTH = 100;
 
-	const float m_MAX_ROTATION = 6;
+	const float m_MAX_ROTATION = 10;
 
 	//Check future location
 	sf::Vector2f futureLocation;
