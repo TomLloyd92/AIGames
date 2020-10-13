@@ -27,5 +27,4 @@ private:
 
 	//AI Controller
 	AIController m_AIController;
-	
 };

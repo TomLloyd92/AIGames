@@ -92,7 +92,7 @@ void Game::setupAssets()
 	//Setting up Font
 	if (!m_ArialBlackfont.loadFromFile("ASSETS\\FONTS\\Starduster3D-XOvP.otf"))
 	{
-		std::cout << "problem loading arial black font" << std::endl;
+		std::cout << "problem loading arial Stardust Font" << std::endl;
 	}
 
 	m_gameplayScreen.setup(m_ArialBlackfont);

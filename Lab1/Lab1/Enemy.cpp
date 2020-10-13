@@ -12,15 +12,22 @@ Enemy::~Enemy()
 void Enemy::update(sf::Time t_deltaTime)
 {
 	m_movement();
+	m_textEnemy.setPosition(m_pos.x + 100, m_pos.y);
 }
 
 void Enemy::render(sf::RenderWindow& t_window)
 {
 	t_window.draw(m_enemyShape);
+	t_window.draw(m_textEnemy);
 }
 
 void Enemy::setup(sf::Font &t_font)
 {
+	m_shipColour = sf::Color(rand() % 255, rand() % 255, rand() % 255);
+	m_textEnemy.setFillColor(sf::Color(0, 255, 255));
+	m_textEnemy.setCharacterSize(75);
+	m_textEnemy.setFont(t_font);
+
 	initialise();
 }
 
@@ -29,7 +36,7 @@ void Enemy::initialise()
 	m_pos.x = rand() % SCREEN_WIDTH + 1.0f;
 	m_pos.y = rand() % SCREEN_HEIGHT + 1.0f;
 	m_enemyShape.setPointCount(3);
-	m_enemyShape.setFillColor(sf::Color(255, rand() % 254, rand() %254));
+	m_enemyShape.setFillColor(m_shipColour);
 	m_enemyShape.setRadius(m_ENEMY_RADIUS * 2);
 	m_enemyShape.setPosition(m_pos);
 	m_enemyShape.setOrigin(m_ENEMY_RADIUS * 2, m_ENEMY_RADIUS * 2);

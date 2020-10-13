@@ -11,15 +11,17 @@ AIController::~AIController()
 void AIController::seekOrFlee(Enemy& t_seeker, sf::Vector2f t_target, std::string t_seekOrFlee)
 {
 	sf::Vector2f relevantLocation;
-	if (t_seekOrFlee == "seek")
+	if (t_seekOrFlee == "Seek")
 	{
 		//SEEK
 		relevantLocation = t_target - t_seeker.getPos();
+		t_seeker.setText("Seek");
 	}
 	else if (t_seekOrFlee == "flee")
 	{
 		//FLEE
 		relevantLocation = t_seeker.getPos() - t_target;
+		t_seeker.setText("Flee");
 	}
 
 	//Unit vector
@@ -48,6 +50,7 @@ void AIController::seekOrFlee(Enemy& t_seeker, sf::Vector2f t_target, std::strin
 
 void AIController::arrive(Enemy& t_seeker, sf::Vector2f t_target)
 {
+	t_seeker.setText("Arrive");
 	sf::Vector2f relevantLocation;
 
 	relevantLocation = t_target - t_seeker.getPos();
@@ -93,6 +96,8 @@ void AIController::pursue(Enemy& t_seeker, sf::Vector2f t_target)
 
 void AIController::wander(Enemy& t_seeker)
 {
+	t_seeker.setText("Wander");
+
 	sf::Vector2f futureLocation;
 	//Predict future location
 	futureLocation.x = t_seeker.getVel().x * m_PREDICTED_LENGTH;

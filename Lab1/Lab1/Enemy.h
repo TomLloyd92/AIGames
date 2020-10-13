@@ -30,6 +30,7 @@ public:
 	void setMaxForce(float t_maxForce) { m_maxForce = t_maxForce; };
 	void setOrientation(float t_orientation) { m_rotation = t_orientation; };
 	void increaseSpeed();
+	void setText(std::string t_text) { m_textEnemy.setString(t_text); };
 
 	float getNewOrientation(float t_currentOrientation, sf::Vector2f t_velocity);
 
@@ -62,5 +63,7 @@ private:
 
 	//Text
 	sf::Text m_textEnemy;
-	sf::Font m_fontEnemy;
+
+	//color
+	sf::Color m_shipColour;
 };
