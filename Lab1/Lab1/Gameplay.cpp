@@ -15,13 +15,13 @@ void GamePlay::update(sf::Time t_deltaTime)
 
 	//Update Enemys
 	m_arriveEnemy.update(t_deltaTime);
-	m_fleeEnemy.update(t_deltaTime);
+	m_seekEnemy.update(t_deltaTime);
 	m_wanderEnemy.update(t_deltaTime);
 
 	//Enemy AI Behaviours	
-	m_arriveEnemy.arrive(m_player.getPos());
-	m_fleeEnemy.seekOrFlee("flee", m_player.getPos());
-	m_wanderEnemy.wander();
+	m_AIController.arrive(m_arriveEnemy, m_player.getPos());
+	m_AIController.seekOrFlee(m_seekEnemy, m_player.getPos(), "seek");
+	m_AIController.wander(m_wanderEnemy);
 }
 
 void GamePlay::render(sf::RenderWindow& t_window)
@@ -31,19 +31,19 @@ void GamePlay::render(sf::RenderWindow& t_window)
 
 	//Draw Enemys
 	m_arriveEnemy.render(t_window);
-	m_fleeEnemy.render(t_window);
+	m_seekEnemy.render(t_window);
 	m_wanderEnemy.render(t_window);
 }
 
-void GamePlay::setup()
+void GamePlay::setup(sf::Font& t_font)
 {
 	//Setup Player
 	m_player.setup();
 
 	//setup Enemys
-	m_arriveEnemy.setup();
-	m_fleeEnemy.setup();
-	m_wanderEnemy.setup();
+	m_arriveEnemy.setup(t_font);
+	m_seekEnemy.setup(t_font);
+	m_wanderEnemy.setup(t_font);
 }
 
 void GamePlay::initialise()
