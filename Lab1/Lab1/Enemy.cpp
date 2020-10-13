@@ -57,7 +57,6 @@ void Enemy::wander()
 	m_rotation = m_rotation + (m_MAX_ROTATION * ((rand() % 2) - 0.5));
 
 
-
 	setVelocity(sf::Vector2f(-std::sin(m_rotation * DEG_TO_RAD), std::cos(m_rotation * DEG_TO_RAD)) * m_MAX_FORCE);
 }
 

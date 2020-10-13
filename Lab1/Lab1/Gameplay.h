@@ -20,6 +20,7 @@ private:
 
 	//Objects
 	Player m_player;
-	Enemy m_enemy;
-
+	Enemy m_arriveEnemy;
+	Enemy m_fleeEnemy;
+	Enemy m_wanderEnemy;
 };
