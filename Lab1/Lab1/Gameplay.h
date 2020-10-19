@@ -29,4 +29,14 @@ private:
 
 	//AI Controller
 	AIController m_AIController;
+
+	//Bools to display Enemys
+	bool m_displayPursue;
+	bool m_displayArrive;
+	bool m_displaySeek;
+	bool m_displaySeekFast;
+	bool m_displayWander;
+
+	//Input
+	void input();
 };

@@ -28,6 +28,9 @@ void GamePlay::update(sf::Time t_deltaTime)
 	m_AIController.seekOrFlee(m_seekEnemy, m_player.getPos(), "Seek");
 	m_AIController.wander(m_wanderEnemy);
 	m_AIController.seekOrFlee(m_seekEnemyFast, m_player.getPos(), "Seek");
+
+	//Input
+	input();
 }
 
 void GamePlay::render(sf::RenderWindow& t_window)
@@ -36,11 +39,26 @@ void GamePlay::render(sf::RenderWindow& t_window)
 	m_player.render(t_window);
 
 	//Draw Enemys
-	m_arriveEnemy.render(t_window);
-	m_seekEnemy.render(t_window);
-	m_wanderEnemy.render(t_window);
-	m_pursueEnemy.render(t_window);
-	m_seekEnemyFast.render(t_window);
+	if (m_displayArrive)
+	{
+		m_arriveEnemy.render(t_window);
+	}
+	if (m_displaySeek)
+	{
+		m_seekEnemy.render(t_window);
+	}
+	if (m_displaySeekFast)
+	{
+		m_seekEnemyFast.render(t_window);
+	}
+	if (m_displayWander)
+	{
+		m_wanderEnemy.render(t_window);
+	}
+	if (m_displayPursue)
+	{
+		m_pursueEnemy.render(t_window);
+	}
 }
 
 void GamePlay::setup(sf::Font& t_font)
@@ -58,4 +76,72 @@ void GamePlay::setup(sf::Font& t_font)
 
 void GamePlay::initialise()
 {
+}
+
+void GamePlay::input()
+{
+	//Arrive
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	{
+		if (m_displayArrive)
+		{
+			m_displayArrive = false;
+		}
+		else
+		{
+			m_displayArrive = true;
+		}
+
+	}
+	//Seek
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+	{
+		if (m_displaySeek)
+		{
+			m_displaySeek = false;
+		}
+		else
+		{
+			m_displaySeek = true;
+		}
+	}
+	//Seek Fast
+		//Seek
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+	{
+		if (m_displaySeekFast)
+		{
+			m_displaySeekFast = false;
+		}
+		else
+		{
+			m_displaySeekFast = true;
+		}
+	}
+
+	//Wander
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+	{
+		if (m_displayWander)
+		{
+			m_displayWander = false;
+		}
+		else
+		{
+			m_displayWander = true;
+		}
+
+	}
+	//Pursue
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+	{
+		if (m_displayPursue)
+		{
+			m_displayPursue = false;
+		}
+		else
+		{
+			m_displayPursue = true;
+		}
+	}
 }
