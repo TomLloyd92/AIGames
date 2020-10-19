@@ -59,9 +59,17 @@ void AIController::seekOrFlee(Enemy& t_seeker, sf::Vector2f t_target, std::strin
 	t_seeker.setVelocity(steering);
 }
 
-void AIController::arrive(Enemy& t_seeker, sf::Vector2f t_target)
+void AIController::arrive(Enemy& t_seeker, sf::Vector2f t_target, std::string t_arrive)
 {
-	t_seeker.setText("Arrive");
+	if (t_arrive == "Arrive")
+	{
+		t_seeker.setText("Arrive");
+	}
+	else if (t_arrive == "Pursue")
+	{
+		t_seeker.setText("Pursue");
+	}
+
 	sf::Vector2f relevantLocation;
 
 	relevantLocation = t_target - t_seeker.getPos();
@@ -129,7 +137,7 @@ void AIController::pursue(Enemy& t_seeker, Player t_target)
 	//	newtarget.position = target.position + target.velocity * timePrediction
 	sf::Vector2f newTargetPos = t_target.getPos() + t_target.getVel() * timePrediction;
 
-	arrive(t_seeker, newTargetPos);
+	arrive(t_seeker, newTargetPos, "Pursue");
 
 }
 

@@ -16,7 +16,7 @@ public:
 
 
 	void seekOrFlee(Enemy& t_seeker, sf::Vector2f t_target, std::string t_seekOrFlee);
-	void arrive(Enemy& t_seeker, sf::Vector2f t_target);
+	void arrive(Enemy& t_seeker, sf::Vector2f t_target, std::string t_arrive);
 	void pursue(Enemy& t_seeker, Player t_target);
 	void wander(Enemy& t_seeker);
 

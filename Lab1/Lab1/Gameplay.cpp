@@ -22,7 +22,7 @@ void GamePlay::update(sf::Time t_deltaTime)
 
 	//Enemy AI Behaviours	
 	m_AIController.pursue(m_pursueEnemy, m_player);
-	m_AIController.arrive(m_arriveEnemy, m_player.getPos());
+	m_AIController.arrive(m_arriveEnemy, m_player.getPos(), "Arrive");
 	m_AIController.seekOrFlee(m_seekEnemy, m_player.getPos(), "Seek");
 	m_AIController.wander(m_wanderEnemy);
 }
