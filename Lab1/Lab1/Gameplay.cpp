@@ -2,6 +2,7 @@
 
 GamePlay::GamePlay()
 {
+	srand(time(NULL));
 }
 
 GamePlay::~GamePlay()

@@ -16,4 +16,5 @@ public:
 	float angleBetween(sf::Vector2f t_vec1, sf::Vector2f t_vec2);
 	float dotProduct(sf::Vector2f t_vec1, sf::Vector2f t_vec2);
 	sf::Vector2f scalerProduct(sf::Vector2f t_vec1, sf::Vector2f t_vec2, float t_angle);
+	sf::Vector2f asAVector(float m_rotation);
 };

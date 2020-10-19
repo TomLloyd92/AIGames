@@ -51,3 +51,10 @@ sf::Vector2f VectorMaths::scalerProduct(sf::Vector2f t_vec1, sf::Vector2f t_vec2
 
 	return spVec;
 }
+
+sf::Vector2f VectorMaths::asAVector(float m_rotation)
+{
+	return sf::Vector2f();
+}
+
+
