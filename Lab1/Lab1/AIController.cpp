@@ -29,6 +29,11 @@ void AIController::seekOrFlee(Enemy& t_seeker, sf::Vector2f t_target, std::strin
 		t_seeker.setText("Wander");
 		relevantLocation = t_target - t_seeker.getPos();
 	}
+	else if (t_seekOrFlee == "Pursue")
+	{
+		t_seeker.setText("Pursue");
+		relevantLocation = t_target - t_seeker.getPos();
+	}
 
 	//Unit vector
 	relevantLocation = m_vectorMaths.unitVec(relevantLocation);
@@ -96,8 +101,36 @@ void AIController::arrive(Enemy& t_seeker, sf::Vector2f t_target)
 	t_seeker.setVelocity(steering);
 }
 
-void AIController::pursue(Enemy& t_seeker, sf::Vector2f t_target)
+void AIController::pursue(Enemy& t_seeker, Player t_target)
 {
+	
+	//direction = target.position - my.position
+	sf::Vector2f relevantLocation;
+	relevantLocation = t_target.getPos() - t_seeker.getPos();
+
+	//	distance = direction.length
+	float distance = m_vectorMaths.magnitude(relevantLocation);
+
+	//	speed = my.velocity.length
+	float speed = m_vectorMaths.magnitude(t_seeker.getVel());
+	float timePrediction;
+	//	if speed <= distance / maxTimePrediction:
+	if (speed <= distance / m_MAX_TIME_PREDICTION)
+	{
+		//timePrediction = maxTimeprediction
+		timePrediction = m_MAX_TIME_PREDICTION;
+	}
+	else
+	{
+		//	else:
+		//timePrediction = distance / speed
+		timePrediction = distance / speed;
+	}
+	//	newtarget.position = target.position + target.velocity * timePrediction
+	sf::Vector2f newTargetPos = t_target.getPos() + t_target.getVel() * timePrediction;
+
+	arrive(t_seeker, newTargetPos);
+
 }
 
 void AIController::wander(Enemy& t_seeker)
@@ -105,13 +138,6 @@ void AIController::wander(Enemy& t_seeker)
 	//Randomize the rotation
 	float num = (rand() % 3) - 1;
 	m_wanderOrientation += t_seeker.getMaxRotation() * ((num));
-
-	/*
-	if (m_wanderOrientation >= 360.0)
-	{
-		m_wanderOrientation = 0;
-	}
-	*/
 
 	//Target Orientation as a vector
 	float targetOrientation = m_wanderOrientation + t_seeker.getRotation();
@@ -131,11 +157,7 @@ void AIController::wander(Enemy& t_seeker)
 	futureLocation = t_seeker.getPos() + m_vectorMaths.unitVec(t_seeker.getVel()) * m_PREDICTED_LENGTH;
 
 	futureLocation += m_WANDER_RADIUS * oriVec;
-
-	//t_seeker.getNewOrientation(t_seeker.getRotation(), futureLocation);
-	//t_seeker.setVelocity(m_vectorMaths.unitVec(futureLocation) * t_seeker.getMaxForce());
 	
 	seekOrFlee(t_seeker, futureLocation, "Wander");
-	
 
 }

@@ -15,6 +15,7 @@ public:
 
 	//Gets
 	sf::Vector2f getPos() { return m_pos; };
+	sf::Vector2f getVel() { return m_vel; };
 
 private:
 	//Test Player;

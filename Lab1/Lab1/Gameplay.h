@@ -24,6 +24,7 @@ private:
 	Enemy m_arriveEnemy;
 	Enemy m_seekEnemy;
 	Enemy m_wanderEnemy;
+	Enemy m_pursueEnemy;
 
 	//AI Controller
 	AIController m_AIController;

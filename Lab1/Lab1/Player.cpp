@@ -97,8 +97,8 @@ void Player::m_movementHandler()
 {
 	m_playerShape.setRotation(m_rotation);
 
-	m_pos.x = m_playerShape.getPosition().x + std::cosf((m_rotation + m_rotationCorrection) * DEG_TO_RAD) * m_speed;
-	m_pos.y = m_playerShape.getPosition().y + std::sinf((m_rotation + m_rotationCorrection) * DEG_TO_RAD) * m_speed;
+	m_vel.x = std::cosf((m_rotation + m_rotationCorrection) * DEG_TO_RAD) * m_speed;
+	m_vel.y = std::sinf((m_rotation + m_rotationCorrection) * DEG_TO_RAD) * m_speed;
 
 	if (m_speed > 0)
 	{
@@ -124,6 +124,7 @@ void Player::m_movementHandler()
 		m_pos.y = SCREEN_HEIGHT;
 	}
 
+	m_pos = m_pos + m_vel;
 
 	m_playerShape.setPosition(m_pos);
 }

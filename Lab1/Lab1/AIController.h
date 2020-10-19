@@ -17,7 +17,7 @@ public:
 
 	void seekOrFlee(Enemy& t_seeker, sf::Vector2f t_target, std::string t_seekOrFlee);
 	void arrive(Enemy& t_seeker, sf::Vector2f t_target);
-	void pursue(Enemy& t_seeker, sf::Vector2f t_target);
+	void pursue(Enemy& t_seeker, Player t_target);
 	void wander(Enemy& t_seeker);
 
 private:
@@ -27,6 +27,7 @@ private:
 	float m_wanderOrientation = 0;
 	VectorMaths m_vectorMaths;
 
+	const float m_MAX_TIME_PREDICTION = 20;
 
 
 };
