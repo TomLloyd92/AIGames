@@ -23,6 +23,7 @@ private:
 	Player m_player;
 	Enemy m_arriveEnemy;
 	Enemy m_seekEnemy;
+	Enemy m_seekEnemyFast;
 	Enemy m_wanderEnemy;
 	Enemy m_pursueEnemy;
 

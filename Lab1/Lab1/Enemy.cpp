@@ -12,20 +12,25 @@ Enemy::~Enemy()
 void Enemy::update(sf::Time t_deltaTime)
 {
 	m_movement();
+
 	m_textEnemy.setPosition(m_pos.x + 100, m_pos.y);
 }
 
 void Enemy::render(sf::RenderWindow& t_window)
 {
+	//Draw Enemy
 	t_window.draw(m_enemyShape);
+	//Draw Vision
+
+	//Draw text
 	t_window.draw(m_textEnemy);
 }
 
 void Enemy::setup(sf::Font &t_font)
 {
 	m_shipColour = sf::Color(rand() % 255, rand() % 255, rand() % 255);
-	m_textEnemy.setFillColor(sf::Color(0, 255, 255));
-	m_textEnemy.setCharacterSize(75);
+	m_textEnemy.setFillColor(m_shipColour);
+	m_textEnemy.setCharacterSize(50);
 	m_textEnemy.setFont(t_font);
 
 	initialise();
@@ -33,13 +38,20 @@ void Enemy::setup(sf::Font &t_font)
 
 void Enemy::initialise()
 {
+	//Random Starting Pos
 	m_pos.x = rand() % SCREEN_WIDTH + 1.0f;
 	m_pos.y = rand() % SCREEN_HEIGHT + 1.0f;
+
+	//Setting up Enemy
 	m_enemyShape.setPointCount(3);
 	m_enemyShape.setFillColor(m_shipColour);
 	m_enemyShape.setRadius(m_ENEMY_RADIUS * 2);
 	m_enemyShape.setPosition(m_pos);
 	m_enemyShape.setOrigin(m_ENEMY_RADIUS * 2, m_ENEMY_RADIUS * 2);
+
+	//Setting up Vision
+
+	//Random starting Vel
 	setVelocity(sf::Vector2f((rand() % 6) -3, (rand() % 6) -3));
 }
 
@@ -87,6 +99,7 @@ void Enemy::m_movement()
 		m_pos.y = SCREEN_HEIGHT;
 	}
 
+	
 	m_enemyShape.setPosition(m_pos);
 	m_enemyShape.setRotation(m_rotation + m_ROTATION_OFFSET);
 

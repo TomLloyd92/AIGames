@@ -5,10 +5,12 @@
 #include <time.h>
 #include "VectorMaths.h"
 #include <iostream>
+
 class Enemy
 {
 public:
 	Enemy();
+	Enemy(float t_maxSpeed) { m_MAX_SPEED = t_maxSpeed; };
 	~Enemy();
 	void update(sf::Time t_deltaTime);
 	void render(sf::RenderWindow& t_window);
@@ -37,6 +39,8 @@ public:
 private:
 	//Test Circle
 	sf::CircleShape m_enemyShape;
+	sf::CircleShape m_vision;
+	sf::RectangleShape line;
 	sf::Vector2f m_pos;
 	sf::Vector2f m_vel = { 0,0 };
 	sf::Vector2f m_target;
@@ -66,4 +70,9 @@ private:
 
 	//color
 	sf::Color m_shipColour;
+
+	//Vertex
+	// create an array of 3 vertices that define a triangle primitive
+	//sf::VertexArray triangle(sf::Triangles, 3);
+
 };
