@@ -12,7 +12,7 @@ public:
 	Enemy();
 	Enemy(float t_maxSpeed) { m_MAX_SPEED = t_maxSpeed; };
 	~Enemy();
-	void update(sf::Time t_deltaTime);
+	void update(sf::Time t_deltaTime, Player &t_player);
 	void render(sf::RenderWindow& t_window);
 	void setup(sf::Font &t_font);
 	void initialise();
@@ -25,6 +25,7 @@ public:
 	float getSpeed() { return m_speed; };
 	float getRotation() { return m_rotation; };
 	float getMaxRotation() { return m_maxRotation; };
+	float getNewOrientation(float t_currentOrientation, sf::Vector2f t_velocity);
 
 	//Sets
 	void setVelocity(sf::Vector2f t_vel) { m_vel = t_vel; };
@@ -34,7 +35,9 @@ public:
 	void increaseSpeed();
 	void setText(std::string t_text) { m_textEnemy.setString(t_text); };
 
-	float getNewOrientation(float t_currentOrientation, sf::Vector2f t_velocity);
+	//View
+	//View Update
+	void m_viewUpdate(Player t_player);
 
 private:
 	//Test Circle
@@ -53,7 +56,7 @@ private:
 	float m_MAX_SPEED = .5;
 	float m_speed = 0.01;
 	float m_maxForce = 10;
-	const static int m_ROTATION_OFFSET = 45;
+	const static int m_ROTATION_OFFSET = 65 ;
 
 	VectorMaths m_vectorMaths;
 
@@ -71,8 +74,18 @@ private:
 	//color
 	sf::Color m_shipColour;
 
-	//Vertex
-	// create an array of 3 vertices that define a triangle primitive
-	//sf::VertexArray triangle(sf::Triangles, 3);
+	//View
+	sf::VertexArray m_view{ sf::Lines };
+	//View Start
+	sf::Vertex m_viewStart;
+	//Power end point
+	sf::Vertex  m_viewEnd;
+	//Total Power
+	sf::Vector2f totalPower;
+
+
+	sf::Color m_viewColour = sf::Color::Green;
+	const float m_SIGHT_RANGE = 400;
+	float m_SIGHT_ANGLE = 90;
 
 };

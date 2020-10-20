@@ -16,11 +16,11 @@ void GamePlay::update(sf::Time t_deltaTime)
 	m_player.update(t_deltaTime);
 
 	//Update Enemys
-	m_arriveEnemy.update(t_deltaTime);
-	m_seekEnemy.update(t_deltaTime);
-	m_wanderEnemy.update(t_deltaTime);
-	m_pursueEnemy.update(t_deltaTime);
-	m_seekEnemyFast.update(t_deltaTime);
+	//m_arriveEnemy.update(t_deltaTime, m_player);
+	m_seekEnemy.update(t_deltaTime,m_player);
+	//m_wanderEnemy.update(t_deltaTime, m_player);
+	//m_pursueEnemy.update(t_deltaTime, m_player);
+	//m_seekEnemyFast.update(t_deltaTime, m_player);
 
 	//Enemy AI Behaviours	
 	m_AIController.pursue(m_pursueEnemy, m_player);

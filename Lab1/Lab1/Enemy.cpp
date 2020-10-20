@@ -9,10 +9,14 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::update(sf::Time t_deltaTime)
+void Enemy::update(sf::Time t_deltaTime, Player & t_player)
 {
+	//Update Move
 	m_movement();
 
+	//Update View
+	m_viewUpdate(t_player);
+	
 	m_textEnemy.setPosition(m_pos.x + 100, m_pos.y);
 }
 
@@ -21,7 +25,7 @@ void Enemy::render(sf::RenderWindow& t_window)
 	//Draw Enemy
 	t_window.draw(m_enemyShape);
 	//Draw Vision
-
+	t_window.draw(m_view);
 	//Draw text
 	t_window.draw(m_textEnemy);
 }
@@ -63,12 +67,14 @@ void Enemy::increaseSpeed()
 	}
 }
 
+
+
 float Enemy::getNewOrientation(float t_currentOrientation, sf::Vector2f t_velocity)
 {
 	//New Orientation if moving
 	if (m_vectorMaths.magnitude(t_velocity) > 0)
 	{
-		return	std::atan2f(-t_velocity.x, t_velocity.y) / DEG_TO_RAD; ;
+		return	std::atan2f(-t_velocity.x, t_velocity.y) * RAD_TO_DEG;
 	}
 	else
 	{
@@ -104,4 +110,60 @@ void Enemy::m_movement()
 	m_enemyShape.setRotation(m_rotation + m_ROTATION_OFFSET);
 
 	increaseSpeed();
+}
+
+void Enemy::m_viewUpdate(Player t_player)
+{
+	//clear line
+	m_view.clear();
+
+	/*
+	float currentRot = m_rotation + m_ROTATION_OFFSET;
+
+	if (currentRot > 360)
+	{
+		currentRot = 0;
+	}
+
+	sf::Vector2f visonVec = sf::Vector2f((cos(currentRot) * RAD_TO_DEG), (sin(currentRot) * RAD_TO_DEG));
+
+	m_vectorMaths.unitVec(visonVec);
+
+
+	//Fer current Unit vector of velocity
+
+	m_viewEnd = sf::Vertex(sf::Vector2f{ (m_pos.x + (visonVec.x) * 100), m_pos.y + visonVec.y * 100 }, m_viewColour);
+	*/
+
+	sf::Vector2f distanceVec =  t_player.getPos() - m_pos;
+	float distance = m_vectorMaths.magnitude(distanceVec);
+
+	if (distance > m_SIGHT_RANGE)
+	{
+		m_viewColour = sf::Color::Green;
+	}
+	else if(distance <= m_SIGHT_RANGE)
+	{
+		float angleBetween = m_vectorMaths.angleBetween(m_vectorMaths.unitVec( t_player.getVel()) , m_vectorMaths.unitVec( m_vel));
+
+		std::cout << angleBetween << std::endl;
+		if (angleBetween < m_SIGHT_ANGLE)
+		{
+			m_viewColour = sf::Color::Red;
+		}
+		else if (angleBetween > m_SIGHT_ANGLE)
+		{
+			m_viewColour = sf::Color::Green;
+		}
+			
+	}
+
+	//Append
+	//Draw the line
+	sf::Vector2f currentVelUnit = m_vectorMaths.unitVec(m_vel);
+	m_viewStart = sf::Vertex(sf::Vector2f{ m_pos.x, m_pos.y}, m_viewColour);
+	m_viewEnd = sf::Vertex(sf::Vector2f{ (m_pos.x +  (currentVelUnit.x) * m_SIGHT_RANGE), m_pos.y + currentVelUnit.y * m_SIGHT_RANGE}, m_viewColour);
+
+	m_view.append(m_viewStart);
+	m_view.append(m_viewEnd);
 }

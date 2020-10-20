@@ -14,7 +14,6 @@ public:
 	AIController();
 	~AIController();
 
-
 	void seekOrFlee(Enemy& t_seeker, sf::Vector2f t_target, std::string t_seekOrFlee);
 	void arrive(Enemy& t_seeker, sf::Vector2f t_target, std::string t_arrive);
 	void pursue(Enemy& t_seeker, Player t_target);
@@ -28,6 +27,4 @@ private:
 	VectorMaths m_vectorMaths;
 
 	const float m_MAX_TIME_PREDICTION = 20;
-
-
 };
