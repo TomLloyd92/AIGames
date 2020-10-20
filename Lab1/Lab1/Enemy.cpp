@@ -117,49 +117,34 @@ void Enemy::m_viewUpdate(Player t_player)
 	//clear line
 	m_view.clear();
 
-	/*
-	float currentRot = m_rotation + m_ROTATION_OFFSET;
-
-	if (currentRot > 360)
-	{
-		currentRot = 0;
-	}
-
-	sf::Vector2f visonVec = sf::Vector2f((cos(currentRot) * RAD_TO_DEG), (sin(currentRot) * RAD_TO_DEG));
-
-	m_vectorMaths.unitVec(visonVec);
-
-
-	//Fer current Unit vector of velocity
-
-	m_viewEnd = sf::Vertex(sf::Vector2f{ (m_pos.x + (visonVec.x) * 100), m_pos.y + visonVec.y * 100 }, m_viewColour);
-	*/
-
+	//Get the distance length to see if is in range
 	sf::Vector2f distanceVec =  t_player.getPos() - m_pos;
 	float distance = m_vectorMaths.magnitude(distanceVec);
 
+	//Not Seen
 	if (distance > m_SIGHT_RANGE)
 	{
 		m_viewColour = sf::Color::Green;
 	}
+	//Seen
 	else if(distance <= m_SIGHT_RANGE)
 	{
+		//Get dir of target
 		sf::Vector2f dirToTarget = t_player.getPos() - m_pos;
 
+		//Find the angle between
 		float angleBetween = m_vectorMaths.angleBetween(dirToTarget, m_vel );
 
-
-
-		std::cout << angleBetween << std::endl;
+		//Seen inside the cone
 		if (angleBetween < m_SIGHT_ANGLE)
 		{
 			m_viewColour = sf::Color::Red;
 		}
+		//Not seen outside
 		else if (angleBetween > m_SIGHT_ANGLE)
 		{
 			m_viewColour = sf::Color::Green;
 		}
-			
 	}
 
 	//Append
