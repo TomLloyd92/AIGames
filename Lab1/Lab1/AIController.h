@@ -22,7 +22,7 @@ public:
 private:
 
 	const float m_PREDICTED_LENGTH = 200;
-	const float m_WANDER_RADIUS = 10;
+	const float m_WANDER_RADIUS = 3;
 	float m_wanderOrientation = 0;
 	VectorMaths m_vectorMaths;
 

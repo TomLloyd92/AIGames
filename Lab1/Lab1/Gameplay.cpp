@@ -16,11 +16,11 @@ void GamePlay::update(sf::Time t_deltaTime)
 	m_player.update(t_deltaTime);
 
 	//Update Enemys
-	//m_arriveEnemy.update(t_deltaTime, m_player);
+	m_arriveEnemy.update(t_deltaTime, m_player);
 	m_seekEnemy.update(t_deltaTime,m_player);
-	//m_wanderEnemy.update(t_deltaTime, m_player);
-	//m_pursueEnemy.update(t_deltaTime, m_player);
-	//m_seekEnemyFast.update(t_deltaTime, m_player);
+	m_wanderEnemy.update(t_deltaTime, m_player);
+	m_pursueEnemy.update(t_deltaTime, m_player);
+	m_seekEnemyFast.update(t_deltaTime, m_player);
 
 	//Enemy AI Behaviours	
 	m_AIController.pursue(m_pursueEnemy, m_player);
@@ -80,68 +80,80 @@ void GamePlay::initialise()
 
 void GamePlay::input()
 {
-	//Arrive
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	if (inputTimer >= 30)
 	{
-		if (m_displayArrive)
+		//Arrive
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
-			m_displayArrive = false;
-		}
-		else
-		{
-			m_displayArrive = true;
-		}
+			inputTimer = 0;
+			if (m_displayArrive)
+			{
+				m_displayArrive = false;
+			}
+			else
+			{
+				m_displayArrive = true;
+			}
 
-	}
-	//Seek
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-	{
-		if (m_displaySeek)
-		{
-			m_displaySeek = false;
 		}
-		else
-		{
-			m_displaySeek = true;
-		}
-	}
-	//Seek Fast
 		//Seek
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-	{
-		if (m_displaySeekFast)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
-			m_displaySeekFast = false;
+			inputTimer = 0;
+			if (m_displaySeek)
+			{
+				m_displaySeek = false;
+			}
+			else
+			{
+				m_displaySeek = true;
+			}
 		}
-		else
+		//Seek Fast
+			//Seek
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 		{
-			m_displaySeekFast = true;
+			inputTimer = 0;
+			if (m_displaySeekFast)
+			{
+				m_displaySeekFast = false;
+			}
+			else
+			{
+				m_displaySeekFast = true;
+			}
+		}
+
+		//Wander
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+		{
+			inputTimer = 0;
+			if (m_displayWander)
+			{
+				m_displayWander = false;
+			}
+			else
+			{
+				m_displayWander = true;
+			}
+
+		}
+		//Pursue
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+		{
+			inputTimer = 0;
+			if (m_displayPursue)
+			{
+				m_displayPursue = false;
+			}
+			else
+			{
+				m_displayPursue = true;
+			}
 		}
 	}
-
-	//Wander
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+	else
 	{
-		if (m_displayWander)
-		{
-			m_displayWander = false;
-		}
-		else
-		{
-			m_displayWander = true;
-		}
-
-	}
-	//Pursue
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
-	{
-		if (m_displayPursue)
-		{
-			m_displayPursue = false;
-		}
-		else
-		{
-			m_displayPursue = true;
-		}
+		inputTimer++;
 	}
 }

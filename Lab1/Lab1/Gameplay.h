@@ -39,4 +39,5 @@ private:
 
 	//Input
 	void input();
+	float inputTimer = 100;
 };

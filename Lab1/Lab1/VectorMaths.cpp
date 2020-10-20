@@ -37,7 +37,7 @@ float VectorMaths::angleBetween(sf::Vector2f t_vec1, sf::Vector2f t_vec2)
 
 float VectorMaths::dotProduct(sf::Vector2f t_vec1, sf::Vector2f t_vec2)
 {
-	float dotProduct = (t_vec1.x * t_vec2.x) + (t_vec1.y * t_vec2.y);;
+	float dotProduct = (t_vec1.x * t_vec2.x) + (t_vec1.y * t_vec2.y);
 
 	return dotProduct;
 }

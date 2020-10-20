@@ -5,6 +5,7 @@
 #include <time.h>
 #include "VectorMaths.h"
 #include <iostream>
+#include <cmath>
 
 class Enemy
 {
@@ -60,9 +61,9 @@ private:
 
 	VectorMaths m_vectorMaths;
 
-	const float m_PREDICTED_LENGTH = 100;
+	const float m_PREDICTED_LENGTH = 1000;
 
-	const float m_maxRotation = 2;
+	const float m_maxRotation = 1;
 
 	//Check future location
 	sf::Vector2f futureLocation;
@@ -86,6 +87,6 @@ private:
 
 	sf::Color m_viewColour = sf::Color::Green;
 	const float m_SIGHT_RANGE = 400;
-	float m_SIGHT_ANGLE = 90;
+	float m_SIGHT_ANGLE = 45;
 
 };

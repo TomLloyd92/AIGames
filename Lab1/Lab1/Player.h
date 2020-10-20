@@ -16,6 +16,7 @@ public:
 	//Gets
 	sf::Vector2f getPos() { return m_pos; };
 	sf::Vector2f getVel() { return m_vel; };
+	float getRotation() { return m_rotation; };
 
 private:
 	//Test Player;

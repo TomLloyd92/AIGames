@@ -144,7 +144,11 @@ void Enemy::m_viewUpdate(Player t_player)
 	}
 	else if(distance <= m_SIGHT_RANGE)
 	{
-		float angleBetween = m_vectorMaths.angleBetween(m_vectorMaths.unitVec( t_player.getVel()) , m_vectorMaths.unitVec( m_vel));
+		sf::Vector2f dirToTarget = t_player.getPos() - m_pos;
+
+		float angleBetween = m_vectorMaths.angleBetween(dirToTarget, m_vel );
+
+
 
 		std::cout << angleBetween << std::endl;
 		if (angleBetween < m_SIGHT_ANGLE)
