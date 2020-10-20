@@ -75,18 +75,25 @@ private:
 	//color
 	sf::Color m_shipColour;
 
-	//View
+	//View left
 	sf::VertexArray m_view{ sf::Lines };
 	//View Start
 	sf::Vertex m_viewStart;
-	//Power end point
+	//Power left point
 	sf::Vertex  m_viewEnd;
+
+	//View
+	sf::VertexArray m_viewRight{ sf::Lines };
+	sf::Vertex m_viewStartRight;
+	//right poiny
+	sf::Vertex m_viewEndRight;
+
 	//Total Power
 	sf::Vector2f totalPower;
 
 
 	sf::Color m_viewColour = sf::Color::Green;
-	const float m_SIGHT_RANGE = 400;
+	const float m_SIGHT_RANGE = 200;
 	float m_SIGHT_ANGLE = 45;
 
 };

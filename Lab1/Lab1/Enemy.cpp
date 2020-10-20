@@ -26,6 +26,7 @@ void Enemy::render(sf::RenderWindow& t_window)
 	t_window.draw(m_enemyShape);
 	//Draw Vision
 	t_window.draw(m_view);
+	t_window.draw(m_viewRight);
 	//Draw text
 	t_window.draw(m_textEnemy);
 }
@@ -116,6 +117,7 @@ void Enemy::m_viewUpdate(Player t_player)
 {
 	//clear line
 	m_view.clear();
+	m_viewRight.clear();
 
 	//Get the distance length to see if is in range
 	sf::Vector2f distanceVec =  t_player.getPos() - m_pos;
@@ -147,12 +149,15 @@ void Enemy::m_viewUpdate(Player t_player)
 		}
 	}
 
-	//Append
-	//Draw the line
+
+	//Current velocity line
 	sf::Vector2f currentVelUnit = m_vectorMaths.unitVec(m_vel);
+
+	//Update Line
 	m_viewStart = sf::Vertex(sf::Vector2f{ m_pos.x, m_pos.y}, m_viewColour);
 	m_viewEnd = sf::Vertex(sf::Vector2f{ (m_pos.x +  (currentVelUnit.x) * m_SIGHT_RANGE), m_pos.y + currentVelUnit.y * m_SIGHT_RANGE}, m_viewColour);
 
+	//Append the line
 	m_view.append(m_viewStart);
 	m_view.append(m_viewEnd);
 }
