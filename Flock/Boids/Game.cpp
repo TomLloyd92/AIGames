@@ -34,7 +34,7 @@ Game::Game()
 		std::cout << "successfully loaded ariblk.ttf font file" << std::endl;
 
 
-	for (int i = 0; i < 100; i++) //Number of boids is hardcoded for testing pusposes.
+	for (int i = 0; i < 10; i++) //Number of boids is hardcoded for testing pusposes.
 	{
 		//Boid b(rand() % window_width, rand() % window_height); //Starts the boid with a random position in the window.
 		Boid b(window_width / 3, window_height / 3); //Starts all boids in the center of the screen

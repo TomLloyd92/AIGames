@@ -83,6 +83,13 @@ Destructors are commented out for now. g++ throws errors if they are included.
 	void borders();
 	float angle(Pvector v);
 	void swarm(vector <Boid> v);
+
+private:
+	//Constants for swarm
+	const int A = 20;	//Strength of Attraction
+	const int B = 1000;	//Strength of Repulsion
+	const int N = 1;	//Attenuation of Attraction
+	const int M = 2;	//Attenutation of Repulsion
 };
 
 #endif

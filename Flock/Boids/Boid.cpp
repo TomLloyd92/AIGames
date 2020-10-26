@@ -254,8 +254,35 @@ void Boid::swarm(vector <Boid> v)
 	Pvector	R;
 	Pvector sum(0, 0);
 
-// Your code here..
+	for (int i = 0; i < v.size(); i++)
+	{
+		//Distance between two objects
+		R = R.subTwoVector(location, v[i].location);
 
+		//Length of the distance
+		float realD = R.magnitude();
+
+		if (realD > 0)
+		{
+			//Force of Attraction
+			float Atraction = (-A / pow(realD, N));
+
+			//Force of Repulsion
+			float Repulsion = (B / pow(realD, M));
+
+			//Potential Energy proportional to the seperation distance
+			float realU = Atraction + Repulsion;
+
+			//Normalize and scale up R
+			R.normalize();
+			R.mulScalar(realU);
+
+			//Add to Sum vector
+			sum.addVector(R);
+		}
+	}
+
+	//Apply the new Force and Update Boid
 	applyForce(sum);
 	update();
 	borders();
