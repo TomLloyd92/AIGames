@@ -49,6 +49,8 @@ private:
 	Flock flock;
 	vector<sf::CircleShape> shapes;
 
+	int leader = 0;
+
 };
 
 #endif // !GAME_HPP

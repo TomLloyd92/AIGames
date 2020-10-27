@@ -70,7 +70,7 @@ Destructors are commented out for now. g++ throws errors if they are included.
 		//cout << "Boid is being deleted by destructor!" << endl;
 	}
 */	
-	void applyForce(Pvector force);
+	void applyForce(Pvector t_force);
 	// Three Laws that boids follow
 	Pvector Separation(vector<Boid> & Boids);
 	Pvector Alignment(vector<Boid> & Boids);
@@ -84,12 +84,16 @@ Destructors are commented out for now. g++ throws errors if they are included.
 	float angle(Pvector v);
 	void swarm(vector <Boid> & v);
 
+	Pvector getForce() { return force; };
+
 private:
 	//Constants for swarm
-	const int A = 20;	//Strength of Attraction
-	const int B = 1000;	//Strength of Repulsion
+	const int A = 15;	//Strength of Attraction
+	const int B = 2000;	//Strength of Repulsion
 	const int N = 1;	//Attenuation of Attraction
 	const int M = 2;	//Attenutation of Repulsion
+
+	Pvector force;
 };
 
 #endif

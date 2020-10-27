@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "Boid.h"
+#include "SFML\Graphics.hpp"
 
 using namespace std;
 
@@ -24,6 +25,8 @@ public:
 
 	//Constructors
 	Flock() {}
+
+
 /*
 Commented out for now, since including destructors causes g++ to spit back
 errors. 
@@ -40,6 +43,10 @@ errors.
 	void addBoid(Boid b);
 	void flocking();
 	void swarming();
+
+	void cFormation(int fLeader);
+
+	void updateLeader(int fleader);
 
 };
 

@@ -24,9 +24,10 @@ using namespace std;
 // =============================================== //
 
 // Adds force Pvector to current force Pvector
-void Boid::applyForce(Pvector force)
+void Boid::applyForce(Pvector t_force)
 {
-	acceleration.addVector(force);
+	force = t_force;
+	acceleration.addVector(t_force);
 }
 
 // Function that checks and modifies the distance

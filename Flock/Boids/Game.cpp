@@ -34,7 +34,7 @@ Game::Game()
 		std::cout << "successfully loaded ariblk.ttf font file" << std::endl;
 
 
-	for (int i = 0; i < 150; i++) //Number of boids is hardcoded for testing pusposes.
+	for (int i = 0; i < 25; i++) //Number of boids is hardcoded for testing pusposes.
 	{
 		//Boid b(rand() % window_width, rand() % window_height); //Starts the boid with a random position in the window.
 		Boid b(window_width / 3, window_height / 3); //Starts all boids in the center of the screen
@@ -127,6 +127,8 @@ void Game::processKeys(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+	else if (sf::Keyboard::C == t_event.key.code)
+		action = "cformation";
 	else if (sf::Keyboard::Space == t_event.key.code)
 		if (action == "flock")
 			action = "swarm";
@@ -195,6 +197,13 @@ void Game::update(sf::Time t_deltaTime)
 	//Applies the three rules to each boid in the flock and changes them accordingly.
 	if (action == "flock")
 		flock.flocking();
+	else if (action == "cformation")
+	{
+		//		int leader = 0;
+		flock.cFormation(leader);
+		shapes[leader].setFillColor(sf::Color::Red);
+
+	}
 	else
 		flock.swarming();
 
