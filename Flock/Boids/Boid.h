@@ -72,17 +72,17 @@ Destructors are commented out for now. g++ throws errors if they are included.
 */	
 	void applyForce(Pvector force);
 	// Three Laws that boids follow
-	Pvector Separation(vector<Boid> Boids);
-	Pvector Alignment(vector<Boid> Boids);
-	Pvector Cohesion(vector<Boid> Boids);
+	Pvector Separation(vector<Boid> & Boids);
+	Pvector Alignment(vector<Boid> & Boids);
+	Pvector Cohesion(vector<Boid> & Boids);
 	//Functions involving SFML and visualisation linking
 	Pvector seek(Pvector v);
 	void run(vector <Boid> v);
 	void update();
-	void flock(vector <Boid> v);
+	void flock(vector <Boid> & v);
 	void borders();
 	float angle(Pvector v);
-	void swarm(vector <Boid> v);
+	void swarm(vector <Boid> & v);
 
 private:
 	//Constants for swarm
