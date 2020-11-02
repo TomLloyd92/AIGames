@@ -5,6 +5,8 @@
 #include "Enemy.h"
 #include "AIController.h"
 #include <array>
+#include "VectorMaths.h"
+
 
 class GamePlay
 {
@@ -40,4 +42,13 @@ private:
 	//Input
 	void input();
 	float inputTimer = 100;
+
+	//C formation
+	void cFormation();
+
+	std::vector<Enemy> Cflock;
+	const int CflockSize = 40;
+
+	//Vec Maths
+	VectorMaths m_vecMaths;
 };
