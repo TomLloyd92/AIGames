@@ -45,18 +45,23 @@ void GamePlay::update(sf::Time t_deltaTime)
 		Cflock.at(i).update(t_deltaTime, m_player);
 	}
 
-
 	if (formation)
 	{
-		cFormation();
+	cFormation();
+	}
+	else if (singleFile)
+	{
+		singleFileForm();
 	}
 	else
 	{
+
 		for (int i = 0; i < CflockSize; i++)
 		{
 			m_AIController.wander(Cflock.at(i));
 		}
 	}
+
 	//Input
 	input();
 }
@@ -124,6 +129,22 @@ void GamePlay::input()
 {
 	if (inputTimer >= 30)
 	{
+		//Single File
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			inputTimer = 0;
+			if (singleFile)
+			{
+				singleFile = false;
+			}
+			else
+			{
+				singleFile = true;
+			}
+
+		}
+
+		//CFormation
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 		{
 			inputTimer = 0;
@@ -244,5 +265,33 @@ void GamePlay::cFormation()
 		{
 			m_AIController.arrive(Cflock.at(i), targetSlot, "Arrive");
 		}
+	}
+}
+
+void GamePlay::singleFileForm()
+{
+
+	for (int i = 0; i < CflockSize; i++)
+	{
+		sf::Vector2f sub(0, 0);
+		sf::Vector2f sum(0, 0);
+		int npcRadius = 10;
+		int closeEnough = 10;
+		float angleAroundCircle = 0.0;
+		sf::Vector2f targetSlot(0, 0);
+		sf::Vector2f targetLeader;
+		if (i == 0)
+		{
+			//Follow Leader
+			targetLeader= m_player.getPos();
+		}
+		else if (i > 0)
+		{
+			//Follow the person infront of you in the array
+			targetLeader = Cflock.at(i - 1).getPos();
+		}
+
+		//Arrive algorithm to target loc
+		m_AIController.arrive(Cflock.at(i), targetLeader, "Arrive");
 	}
 }

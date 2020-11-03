@@ -25,10 +25,10 @@ void Enemy::render(sf::RenderWindow& t_window)
 	//Draw Enemy
 	t_window.draw(m_enemyShape);
 	//Draw Vision
-	t_window.draw(m_view);
+	//t_window.draw(m_view);
 	t_window.draw(m_viewRight);
 	//Draw text
-	t_window.draw(m_textEnemy);
+	//t_window.draw(m_textEnemy);
 }
 
 void Enemy::setup(sf::Font &t_font)

@@ -50,6 +50,11 @@ private:
 	const int CflockSize = 40;
 	bool formation = false;
 
+
+	//single file formation
+	bool singleFile = false;
+	void singleFileForm();
+
 	//Vec Maths
 	VectorMaths m_vecMaths;
 };
