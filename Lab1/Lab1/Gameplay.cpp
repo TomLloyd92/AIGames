@@ -46,8 +46,17 @@ void GamePlay::update(sf::Time t_deltaTime)
 	}
 
 
-	cFormation();
-
+	if (formation)
+	{
+		cFormation();
+	}
+	else
+	{
+		for (int i = 0; i < CflockSize; i++)
+		{
+			m_AIController.wander(Cflock.at(i));
+		}
+	}
 	//Input
 	input();
 }
@@ -115,6 +124,20 @@ void GamePlay::input()
 {
 	if (inputTimer >= 30)
 	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+		{
+			inputTimer = 0;
+			if (formation)
+			{
+				formation = false;
+			}
+			else
+			{
+				formation = true;
+			}
+
+		}
+
 		//Arrive
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{

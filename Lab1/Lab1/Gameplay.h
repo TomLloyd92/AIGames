@@ -48,6 +48,7 @@ private:
 
 	std::vector<Enemy> Cflock;
 	const int CflockSize = 40;
+	bool formation = false;
 
 	//Vec Maths
 	VectorMaths m_vecMaths;
