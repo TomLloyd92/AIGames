@@ -18,17 +18,24 @@ class TestLevel
 public:
 	TestLevel();
 	~TestLevel();
-	void update(sf::Time t_deltaTime);
+	void update();
 	void render(sf::RenderWindow& t_window);
 	void setup(sf::Font& t_font);
 	void initialise();
 	void visit(Node* t_node);
 
+	//Updates
+	void updateArc();
+
 	//Sets
 	void setImpassibleNode(sf::Vector2i t_impassibleNode);
+	void setGoal(sf::Vector2i t_goalNode);
+	void setStart(sf::Vector2i t_startNode);
 
+	//Algorithms
+	void aStar();
 
 private:
-
-
+	int startNode = 0;
+	int goalNode = 2499;
 };

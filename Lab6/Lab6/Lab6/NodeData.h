@@ -16,6 +16,8 @@ struct NodeData
 	int m_g{ 0 };
 
 	bool passable;
+	bool goal = false;
+	bool start = false;
 
 	sf::RectangleShape rectangle;
 
