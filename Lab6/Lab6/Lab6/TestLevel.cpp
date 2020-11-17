@@ -5,14 +5,20 @@
 std::vector<Node*> path;
 
 Graph<NodeData, int> levelGraph(2500);
-int const ROWS = 50;
-int const COLS = 50;
-int arr[ROWS][COLS];
+
+static int const ROWS = 50;
+static int const COLS = 50;
+static int arr[ROWS][COLS];
 
 
 void TestLevel::visit(Node* t_node)
 {
 	std::cout << "Visiting: " << t_node->m_data.m_name << std::endl;
+}
+
+void TestLevel::setImpassibleNode(sf::Vector2i t_impassibleNode)
+{
+	levelGraph.nodeIndex(arr[t_impassibleNode.x][t_impassibleNode.y])->m_data.passable = false;
 }
 
 
@@ -88,15 +94,21 @@ TestLevel::TestLevel()
 							+ (levelGraph.nodeIndex(arr[n_row][n_col])->m_data.yPos - levelGraph.nodeIndex(arr[x][y])->m_data.yPos)
 							* (levelGraph.nodeIndex(arr[n_row][n_col])->m_data.yPos - levelGraph.nodeIndex(arr[x][y])->m_data.yPos));
 
-						std::cout << weight << std::endl;
-
 						levelGraph.addArc(arr[n_row][n_col], arr[x][y], weight);
 					}
 				}
 			}
 		}
 	}
-	
+
+	//Initial Graph Setup
+	for (int i = 0; i < 2500; i++)
+	{
+		levelGraph.nodeIndex(i)->m_data.rectangle.setSize(sf::Vector2f(TILE_WIDTH, TILE_WIDTH));
+		levelGraph.nodeIndex(i)->m_data.rectangle.setPosition(levelGraph.nodeIndex(i)->m_data.xPos, levelGraph.nodeIndex(i)->m_data.yPos);
+		levelGraph.nodeIndex(i)->m_data.rectangle.setOutlineThickness(-1);
+		levelGraph.nodeIndex(i)->m_data.rectangle.setOutlineColor(sf::Color::Black);
+	}
 }
 
 TestLevel::~TestLevel()
@@ -105,41 +117,47 @@ TestLevel::~TestLevel()
 
 void TestLevel::update(sf::Time t_deltaTime)
 {
-	
+	for (int i = 0; i < 2500; i++)
+	{
+		if (levelGraph.nodeIndex(i)->m_data.passable)
+		{
+			levelGraph.nodeIndex(i)->m_data.rectangle.setFillColor(sf::Color::White);
+		}
+		else
+		{
+			levelGraph.nodeIndex(i)->m_data.rectangle.setFillColor(sf::Color::Black);
+		}
+	}
+
+	/*
 	for (int i = 0; i < 2500; i++)
 	{
 		levelGraph.nodeIndex(i)->m_data.rectangle.setSize(sf::Vector2f(TILE_WIDTH, TILE_WIDTH));
 		levelGraph.nodeIndex(i)->m_data.rectangle.setPosition(levelGraph.nodeIndex(i)->m_data.xPos, levelGraph.nodeIndex(i)->m_data.yPos);
 		levelGraph.nodeIndex(i)->m_data.rectangle.setOutlineThickness(-1);
 		levelGraph.nodeIndex(i)->m_data.rectangle.setOutlineColor(sf::Color::Black);
-
 	}
+	*/
 
 	//Testing aStar by colouring in the squares
-
-	levelGraph.aStar(levelGraph.nodeIndex(arr[0][0]), levelGraph.nodeIndex(arr[4][3]), path);
+	/*
+	levelGraph.aStar(levelGraph.nodeIndex(arr[0][0]), levelGraph.nodeIndex(arr[40][34]), path);
 	for (auto& node : path) {
 
 		node->m_data.rectangle.setFillColor(sf::Color(0, 255, 0, 255));
 	}
+	*/
 
-	
+
+
 }
 
 void TestLevel::render(sf::RenderWindow& t_window)
 {
-	
-
 	for (int i = 0; i < 2500; i++)
 	{
-
 		t_window.draw(levelGraph.nodeIndex(i)->m_data.rectangle);
-
-
-
 	}
-	
-
 }
 
 void TestLevel::setup(sf::Font& t_font)

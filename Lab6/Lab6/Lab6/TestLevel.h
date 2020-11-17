@@ -24,8 +24,11 @@ public:
 	void initialise();
 	void visit(Node* t_node);
 
-private:
+	//Sets
+	void setImpassibleNode(sf::Vector2i t_impassibleNode);
 
+
+private:
 
 
 };

@@ -59,7 +59,7 @@ void Game::update(sf::Time t_deltaTime)
 	switch (m_currentMode)
 	{
 	case GameMode::Gameplay:
-		m_gameplayScreen.update(t_deltaTime);
+		m_gameplayScreen.update(t_deltaTime, m_window);
 		break;
 	default:
 		break;
