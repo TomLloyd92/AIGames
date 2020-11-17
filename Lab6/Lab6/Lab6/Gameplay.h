@@ -2,7 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 #include <array>
-
+#include "TestLevel.h"
 
 class GamePlay
 {
@@ -16,6 +16,8 @@ public:
 private:
 	//Font
 	sf::Font m_font;
+
+	TestLevel testLevel;
 
 	void input();
 };
