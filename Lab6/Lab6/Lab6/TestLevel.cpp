@@ -45,30 +45,8 @@ void TestLevel::updateArc()
 					}
 					else
 					{
-
-
 						levelGraph.nodeIndex(arr[x][y])->removeArc(levelGraph.nodeIndex(arr[n_row][n_col]));
 						levelGraph.nodeIndex(arr[n_row][n_col])->removeArc(levelGraph.nodeIndex(arr[x][y]));
-						/*
-						for (int node = 0; node < levelGraph.nodeIndex(arr[n_row][n_col])->arcList->size(); node++)
-						{
-							// if the node is valid...
-							if (nullptr != levelGraph.nodeIndex(arr[n_row][n_col])) {
-								// see if the node has an arc pointing to the current node.
-								arc = m_nodes.at(node)->getArc(m_nodes.at(index));
-							}
-							// if it has an arc pointing to the current node, then
-							// remove the arc.
-							if (arc != 0) {
-								removeArc(node, index);
-							}
-							
-
-						
-						//float weight = 1000000;
-						levelGraph.removeArc(arr[n_row][n_col], arr[x][y]);
-						//levelGraph.addArc(arr[n_row][n_col], arr[x][y], weight);
-						*/
 					}
 				}
 			}
@@ -86,10 +64,14 @@ void TestLevel::setImpassibleNode(sf::Vector2i t_impassibleNode)
 
 void TestLevel::setGoal(sf::Vector2i t_goalNode)
 {
+	goalNode = arr[t_goalNode.x][t_goalNode.y];
+	levelGraph.nodeIndex(arr[t_goalNode.x][t_goalNode.y])->m_data.rectangle.setFillColor(sf::Color::Red);
 }
 
 void TestLevel::setStart(sf::Vector2i t_startNode)
 {
+	startNode = arr[t_startNode.x][t_startNode.y];
+	levelGraph.nodeIndex(arr[t_startNode.x][t_startNode.y])->m_data.rectangle.setFillColor(sf::Color::Green);
 }
 
 void TestLevel::aStar()
@@ -100,6 +82,11 @@ void TestLevel::aStar()
 
 		node->m_data.rectangle.setFillColor(sf::Color(0, 255, 0, 255));
 	}
+}
+
+void TestLevel::breathFirst()
+{
+
 }
 
 
@@ -168,8 +155,8 @@ TestLevel::TestLevel()
 					}
 					else
 					{
-						float weight = 1000000;
-						levelGraph.addArc(arr[n_row][n_col], arr[x][y], weight);
+						//float weight = 1000000;
+						//levelGraph.addArc(arr[n_row][n_col], arr[x][y], weight);
 					}
 				}
 			}
@@ -203,28 +190,6 @@ void TestLevel::update()
 			levelGraph.nodeIndex(i)->m_data.rectangle.setFillColor(sf::Color::Black);
 		}
 	}
-
-	/*
-	for (int i = 0; i < 2500; i++)
-	{
-		levelGraph.nodeIndex(i)->m_data.rectangle.setSize(sf::Vector2f(TILE_WIDTH, TILE_WIDTH));
-		levelGraph.nodeIndex(i)->m_data.rectangle.setPosition(levelGraph.nodeIndex(i)->m_data.xPos, levelGraph.nodeIndex(i)->m_data.yPos);
-		levelGraph.nodeIndex(i)->m_data.rectangle.setOutlineThickness(-1);
-		levelGraph.nodeIndex(i)->m_data.rectangle.setOutlineColor(sf::Color::Black);
-	}
-	*/
-
-	//Testing aStar by colouring in the squares
-	/*
-	levelGraph.aStar(levelGraph.nodeIndex(arr[0][0]), levelGraph.nodeIndex(arr[40][34]), path);
-	for (auto& node : path) {
-
-		node->m_data.rectangle.setFillColor(sf::Color(0, 255, 0, 255));
-	}
-	*/
-
-
-
 }
 
 void TestLevel::render(sf::RenderWindow& t_window)

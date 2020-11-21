@@ -34,6 +34,7 @@ public:
 
 	//Algorithms
 	void aStar();
+	void breathFirst();
 
 private:
 	int startNode = 0;
