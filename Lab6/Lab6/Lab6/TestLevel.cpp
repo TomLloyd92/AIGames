@@ -9,9 +9,11 @@ static int const COLS = 50;
 static int arr[ROWS][COLS];
 
 
+
+
 void TestLevel::visit(Node* t_node)
 {
-	std::cout << "Visiting: " << t_node->m_data.m_name << std::endl;
+	std::cout << "Visiting: " << t_node->m_data.weight << std::endl;
 }
 
 void TestLevel::updateArc()
@@ -86,6 +88,50 @@ void TestLevel::aStar()
 
 void TestLevel::breathFirst()
 {
+	//levelGraph.adaptedBreadthFirst(levelGraph.nodeIndex(startNode), levelGraph.nodeIndex(goalNode));
+
+}
+
+void TestLevel::createFlowField()
+{
+	//Set the goal node weight to zero
+	levelGraph.nodeIndex(goalNode)->m_data.weight = 0;
+
+	Node *node = levelGraph.nodeIndex(goalNode);
+
+	if (nullptr != node)
+	{
+		std::queue<Node*> nodeQueue;
+		// place the first node on the queue, and mark it.
+		nodeQueue.push(node);
+		node->setMarked(true);
+
+		// loop through the queue while there are nodes in it.
+		while (nodeQueue.size() != 0)
+		{
+			// process the node at the front of the queue.
+			visit(nodeQueue.front());
+
+			// add all of the child nodes that have not been 
+			// marked into the queue
+			auto iter = nodeQueue.front()->arcList().begin();
+			auto endIter = nodeQueue.front()->arcList().end();
+
+			for (; iter != endIter; iter++)
+			{
+				if ((*iter).node()->marked() == false)
+				{
+					(*iter).node()->m_data.weight = nodeQueue.front()->m_data.weight + 1;
+					// mark the node and add it to the queue.
+					(*iter).node()->setMarked(true);
+					nodeQueue.push((*iter).node());
+				}
+			}
+
+			// dequeue the current node.
+			nodeQueue.pop();
+		}
+	}
 
 }
 
@@ -197,6 +243,7 @@ void TestLevel::render(sf::RenderWindow& t_window)
 	for (int i = 0; i < 2500; i++)
 	{
 		t_window.draw(levelGraph.nodeIndex(i)->m_data.rectangle);
+		//t_wiqndow.draw(levelGraph.nodeIndex(i)->m_data.)
 	}
 }
 

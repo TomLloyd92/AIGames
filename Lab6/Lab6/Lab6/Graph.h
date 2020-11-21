@@ -354,7 +354,40 @@ void Graph<NodeType, ArcType>::breadthFirst(Node* node, std::function<void(Node*
 template<class NodeType, class ArcType>
 void Graph<NodeType, ArcType>::adaptedBreadthFirst(Node* current, Node* goal)
 {
+	/*
+	if (nullptr != node)
+	{
+		std::queue<Node*> nodeQueue;
+		// place the first node on the queue, and mark it.
+		nodeQueue.push(node);
+		node->setMarked(true);
 
+		// loop through the queue while there are nodes in it.
+		while (nodeQueue.size() != 0)
+		{
+			// process the node at the front of the queue.
+			f_visit(nodeQueue.front());
+
+			// add all of the child nodes that have not been 
+			// marked into the queue
+			auto iter = nodeQueue.front()->arcList().begin();
+			auto endIter = nodeQueue.front()->arcList().end();
+
+			for (; iter != endIter; iter++)
+			{
+				if ((*iter).node()->marked() == false)
+				{
+					// mark the node and add it to the queue.
+					(*iter).node()->setMarked(true);
+					nodeQueue.push((*iter).node());
+				}
+			}
+
+			// dequeue the current node.
+			nodeQueue.pop();
+		}
+	}
+	*/
 }
 
 template<class NodeType, class ArcType>

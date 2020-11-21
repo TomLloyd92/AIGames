@@ -4,20 +4,15 @@
 #include <string.h>
 #include <iostream>
 #include <fstream>
-#include "Graph.h"
-#include "GraphArc.h"
-#include "GraphNode.h"
-#include "NodeData.h"
+#include <queue>
+#include "Node.h"
 #include "Globals.h"
 
-typedef GraphArc<NodeData, int> Arc;
-typedef GraphNode<NodeData, int> Node;
-
-class TestLevel
+class Grid
 {
 public:
-	TestLevel();
-	~TestLevel();
+	Grid();
+	~Grid();
 	void update();
 	void render(sf::RenderWindow& t_window);
 	void setup(sf::Font& t_font);
@@ -34,10 +29,9 @@ public:
 
 	//Algorithms
 	void aStar();
-	void breathFirst();
 	void createFlowField();
 
 private:
-	int startNode = 0;
-	int goalNode = 2499;
+	int startNode = 13;
+	int goalNode = 15;
 };

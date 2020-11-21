@@ -15,11 +15,15 @@ struct NodeData
 	int m_h{ 0 };
 	int m_g{ 0 };
 
+	//Draw the weight on the square
+	float weight;
+
 	bool passable;
 	bool goal = false;
 	bool start = false;
 
-	sf::RectangleShape rectangle;
 
+
+	sf::RectangleShape rectangle;
 
 };
