@@ -7,7 +7,7 @@ enum class  GameMode
 {
 	Gameplay
 };
-const static int TILE_WIDTH = 25;
+const static int TILE_WIDTH = 15;
 
 const static int SCREEN_WIDTH = TILE_WIDTH * 50;
 const static int SCREEN_HEIGHT = TILE_WIDTH * 50;

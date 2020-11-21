@@ -57,7 +57,7 @@ void GamePlay::input(sf::RenderWindow & t_window)
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 	{
-		testLevel.update();
+		//testLevel.update();
 		testLevel.aStar();
 
 

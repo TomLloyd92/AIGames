@@ -45,6 +45,10 @@ void TestLevel::updateArc()
 					}
 					else
 					{
+
+
+						levelGraph.nodeIndex(arr[x][y])->removeArc(levelGraph.nodeIndex(arr[n_row][n_col]));
+						levelGraph.nodeIndex(arr[n_row][n_col])->removeArc(levelGraph.nodeIndex(arr[x][y]));
 						/*
 						for (int node = 0; node < levelGraph.nodeIndex(arr[n_row][n_col])->arcList->size(); node++)
 						{
@@ -90,6 +94,7 @@ void TestLevel::setStart(sf::Vector2i t_startNode)
 
 void TestLevel::aStar()
 {
+	path.clear();
 	levelGraph.aStar(levelGraph.nodeIndex(startNode), levelGraph.nodeIndex(goalNode), path);
 	for (auto& node : path) {
 

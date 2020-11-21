@@ -146,7 +146,10 @@ void GraphNode<NodeType, ArcType>::removeArc(Node* node)
     {
         if ((*iter).node() == node)
         {
-            m_arcList.remove((*iter));
+           m_arcList.erase(iter);
+           break;
+           // *iter;
+            //m_arcList.remove(*iter);
         }
     }
 }
