@@ -21,6 +21,8 @@ public:
 
 	//Updates
 	void updateArc();
+	void updateArrow();
+	void updatePath();
 
 	//Sets
 	void setImpassibleNode(sf::Vector2i t_impassibleNode);
@@ -30,6 +32,9 @@ public:
 	//Algorithms
 	void aStar();
 	void createFlowField();
+
+	void resetPaths();
+	void setVectors();
 
 private:
 	int startNode = 13;

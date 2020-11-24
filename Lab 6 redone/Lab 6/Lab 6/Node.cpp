@@ -30,6 +30,8 @@ void Node::setUp(sf::Font t_font)
     m_text.setString(std::to_string(m_weight));
 }
 
+
+
 void Node::setArc(Node* t_node)
 {
     //Add Node pointer to arcs list

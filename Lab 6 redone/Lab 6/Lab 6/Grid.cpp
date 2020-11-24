@@ -58,11 +58,39 @@ void Grid::updateArc()
 	}
 }
 
+void Grid::updateArrow()
+{
+}
+
+void Grid::updatePath()
+{
+	//Reset Paths
+	resetPaths();
+
+	Node* currentPathNode = &levelGrid.at(startNode);
+
+	while (currentPathNode != &levelGrid.at(goalNode))
+	{
+		std::list<Node*> arcs = currentPathNode->getArcs();
+		std::list<Node*>::iterator iter = arcs.begin();
+
+		for (; iter != arcs.end(); iter++)
+		{
+			if ((*iter)->getWeight() < currentPathNode->getWeight())
+			{
+
+				currentPathNode = (*iter);
+				currentPathNode->setPathNode(true);
+			}
+		}
+	}
+}
+
 void Grid::setImpassibleNode(sf::Vector2i t_impassibleNode)
 {
 	//Get node index of the impassible node and make impassible
 	levelGrid.at(arr[t_impassibleNode.x][t_impassibleNode.y]).setPassable(false);
-
+	resetPaths();
 	updateArc();
 	update();
 }
@@ -90,57 +118,62 @@ void Grid::createFlowField()
 	levelGrid.at(goalNode).setWeight(0);	//Set goal node to 0
 	levelGrid.at(goalNode).setMarked(true);	//Goal node is marked as true
 
-	//
+	//Create a Node Que
 	std::queue<Node*> nodeQue;
 
+	//Push Goal Node into the Que
 	nodeQue.push(&levelGrid.at(goalNode));
 
-	while (!nodeQue.empty())
+	while (nodeQue.empty()== false)
 	{
 		//Get all arcs at from
 		std::list<Node*> currentArchList = nodeQue.front()->getArcs();
 		//Create List iterator to derefernce later
-		std::list<Node*>::iterator it = currentArchList.begin();
+		std::list<Node*>::iterator iter = currentArchList.begin();
 
 		//Cast front of the que to Node
 		Node* front = (Node*)nodeQue.front();
 
-		for (; it != currentArchList.end(); it++)
+		//Go through all arcs
+		for (; iter != currentArchList.end(); iter++)
 		{
-			if ((*it)->getMarked() == false)
-			{
-				(*it)->setWeight(front->getWeight() + 1);
-				(*it)->setMarked(true);
-				nodeQue.push(*it);
-			}
-		}
-
-		/*
-		// go through each connecting node
-		auto iter = currentArchList.begin();
-		auto endIter = currentArchList.end();
-
-		for (; iter != endIter; ++iter)
-		{
-			// process the linked node if it isn't already marked.
+			//If the current iterator hasnt been marked
 			if ((*iter)->getMarked() == false)
 			{
-				(*it)->setWeight(front->getWeight() + 1);
-				(*it)->setMarked(true);
-				nodeQue.push(*it);
+				//Set weight to one more than front node
+				(*iter)->setWeight(front->getWeight() + 1);
+				(*iter)->setMarked(true);
+				//Push iterator
+				nodeQue.push(*iter);
 			}
 		}
-		*/
+
 		nodeQue.pop();
 	}
 	//Update all the nodes colour and weight
+	resetPaths();
+	updatePath();
 	update();
-
 
 	//Debug to note when flow field is complete
 	std::cout << "Finished Flow Field" << std::endl;
 }
 
+void Grid::resetPaths()
+{
+	for (int i = 0; i < levelGrid.size(); i++)
+	{
+		if (levelGrid.at(i).getPath())
+		{
+			levelGrid.at(i).setPathNode(false);
+		}
+	}
+}
+
+void Grid::setVectors()
+{
+
+}
 
 Grid::Grid()
 {
@@ -195,15 +228,6 @@ Grid::Grid()
 
 					if (levelGrid.at(arr[n_row][n_col]).getPassable() == true)
 					{
-
-						/*
-						//Distance between point and neighbour
-						float weight = sqrt((levelGraph.nodeIndex(arr[n_row][n_col])->m_data.xPos - levelGraph.nodeIndex(arr[x][y])->m_data.xPos)
-							* (levelGraph.nodeIndex(arr[n_row][n_col])->m_data.xPos - levelGraph.nodeIndex(arr[x][y])->m_data.xPos)
-							+ (levelGraph.nodeIndex(arr[n_row][n_col])->m_data.yPos - levelGraph.nodeIndex(arr[x][y])->m_data.yPos)
-							* (levelGraph.nodeIndex(arr[n_row][n_col])->m_data.yPos - levelGraph.nodeIndex(arr[x][y])->m_data.yPos));
-						*/
-
 						levelGrid.at(arr[x][y]).setArc(&levelGrid.at(arr[n_row][n_col]));
 					}
 					else
@@ -233,9 +257,13 @@ void Grid::update()
 		{
 			levelGrid.at(i).rectangle.setFillColor(sf::Color::Red);
 		}
+		else if (levelGrid.at(i).getPath())
+		{
+			levelGrid.at(i).rectangle.setFillColor(sf::Color::Yellow);
+		}
 		else if (levelGrid.at(i).getPassable())
 		{
-			levelGrid.at(i).rectangle.setFillColor(sf::Color(0, 0, 255, 255/ levelGrid.at(i).getWeight()));
+			levelGrid.at(i).rectangle.setFillColor(sf::Color(0, 0, 255, 255/ (levelGrid.at(i).getWeight() * .5) ));
 		}
 		else if (levelGrid.at(i).getPassable() == false)
 		{
